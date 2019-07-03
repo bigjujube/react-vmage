@@ -1,7 +1,7 @@
 import React, { Component, createRef, RefObject } from 'react'
 import ReactDOM from 'react-dom'
 import ImageModal from 'react-vmage'
-import data from './mock/images'
+import data from './mock/imageList'
 // import '../src/styles.less'
 class Root extends Component<any, any> {
   private modal: RefObject<ImageModal> = createRef()

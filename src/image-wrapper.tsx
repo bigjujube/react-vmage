@@ -4,6 +4,7 @@
 
 import React, { Component, createRef, RefObject } from 'react'
 import { OFFSET_DEFAULT, ZOOM_LEVEL } from './utils/contants'
+const Alloyfinger = require('alloyfinger')
 
 export interface Image {
   src: string
@@ -38,6 +39,7 @@ export default class ImageWrapper extends Component<ImageWrapperProps, ImageWrap
   private clientOffset: Offset
   private offsetRange: Offset
   private mounted: boolean
+  private alloyFinger: typeof Alloyfinger
   constructor(props: ImageWrapperProps, context: any) {
     super(props, context)
     this.state = {
@@ -167,6 +169,17 @@ export default class ImageWrapper extends Component<ImageWrapperProps, ImageWrap
 
   componentDidMount() {
     this.mounted = true
+    this.alloyFinger = new Alloyfinger(this.image.current, {
+      pinch: (evt: any) => {
+        console.log(evt)
+      },
+      tap: (evt: any) => {
+        console.log(evt)
+      },
+      touchStart: function(evt: any) {
+        console.log(evt)
+      }
+    })
     this.loadImage(this.props.image.src)
     window.addEventListener('resize', this.setOffsetRange.bind(this))
     document.documentElement.addEventListener('mouseup', this.onMoveEnd.bind(this))
